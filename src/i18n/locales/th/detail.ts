@@ -1,0 +1,38 @@
+import type { DetailNS } from '@/i18n/locales/en/detail';
+
+export const detail: DetailNS = {
+  title: 'ข้อมูลลูกค้า',
+  sections: {
+    contact: 'ข้อมูลติดต่อ',
+    address: 'ที่อยู่',
+    company: 'ที่ทำงาน',
+    personal: 'ข้อมูลส่วนตัว',
+    bank: 'ธนาคาร',
+  },
+  fields: {
+    email: 'อีเมล',
+    phone: 'เบอร์โทรศัพท์',
+    username: 'ชื่อผู้ใช้',
+    age: 'อายุ',
+    gender: 'เพศ',
+    birthDate: 'วันเกิด',
+    bloodGroup: 'หมู่เลือด',
+    university: 'มหาวิทยาลัย',
+    address: 'ที่อยู่',
+    city: 'เมือง',
+    state: 'จังหวัด/รัฐ',
+    postalCode: 'รหัสไปรษณีย์',
+    country: 'ประเทศ',
+    companyName: 'ชื่อบริษัท',
+    department: 'แผนก',
+    jobTitle: 'ตำแหน่ง',
+    cardType: 'ประเภทบัตร',
+    cardNumber: 'หมายเลขบัตร',
+    cardExpire: 'วันหมดอายุ',
+    iban: 'IBAN',
+    currency: 'สกุลเงิน',
+  },
+  notProvided: '—',
+  hide: 'ซ่อน',
+  show: 'แสดง',
+};

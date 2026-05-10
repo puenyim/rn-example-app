@@ -1,0 +1,38 @@
+export const detail = {
+  title: 'Customer Detail',
+  sections: {
+    bank: 'Bank',
+    contact: 'Contact',
+    address: 'Address',
+    company: 'Company',
+    personal: 'Personal',
+  },
+  fields: {
+    email: 'Email',
+    phone: 'Phone',
+    username: 'Username',
+    age: 'Age',
+    gender: 'Gender',
+    birthDate: 'Birth date',
+    bloodGroup: 'Blood group',
+    university: 'University',
+    address: 'Address',
+    city: 'City',
+    state: 'State',
+    postalCode: 'Postal code',
+    country: 'Country',
+    companyName: 'Company',
+    department: 'Department',
+    jobTitle: 'Job title',
+    cardType: 'Card type',
+    cardNumber: 'Card number',
+    cardExpire: 'Expiry date',
+    iban: 'IBAN',
+    currency: 'Currency',
+  },
+  notProvided: '—',
+  hide: 'Hide',
+  show: 'Show',
+} as const;
+
+export type DetailNS = typeof detail;

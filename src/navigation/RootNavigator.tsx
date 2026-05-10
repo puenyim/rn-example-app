@@ -1,0 +1,54 @@
+import { useTranslation } from 'react-i18next';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  type Theme,
+} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { CustomerDetailScreen } from '@/screens//customer-detail/CustomerDetailScreen';
+import { HomeScreen } from '@/screens//home/HomeScreen';
+import { colors } from '@/theme';
+import type { RootStackParamList } from '@/navigation/types';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const navTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.background,
+    card: colors.surface,
+    border: colors.border,
+    primary: colors.primary,
+    text: colors.text,
+  },
+};
+
+export function RootNavigator() {
+  const { t: tHome } = useTranslation('home');
+  const { t: tDetail } = useTranslation('detail');
+
+  return (
+    <NavigationContainer theme={navTheme}>
+      <Stack.Navigator
+        screenOptions={{
+          headerTitleStyle: { fontWeight: '700' },
+          headerLargeTitleShadowVisible: false,
+          contentStyle: { backgroundColor: colors.background },
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: tHome('title') }}
+        />
+        <Stack.Screen
+          name="CustomerDetail"
+          component={CustomerDetailScreen}
+          options={{ title: tDetail('title') }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}

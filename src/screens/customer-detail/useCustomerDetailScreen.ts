@@ -1,6 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { CustomerDetailScreenProps } from '@/navigation/types';
+import { fetchUserById } from '@/services/users';
+import type { User } from '@/types/user';
 import {
   formatCardNumber,
   maskCardNumber,
@@ -24,11 +26,36 @@ export interface BankCardData {
 }
 
 export function useCustomerDetailScreen({ route }: CustomerDetailScreenProps) {
-  const { user } = route.params;
+  const { user: initialUser } = route.params;
   const { t } = useTranslation('detail');
 
+  const [user, setUser] = useState<User>(initialUser);
+  const [isLoading, setIsLoading] = useState(true);
   const [cardRevealed, setCardRevealed] = useState(false);
   const toggleCard = useCallback(() => setCardRevealed((prev) => !prev), []);
+
+  useEffect(() => {
+    let cancelled = false;
+    setIsLoading(true);
+
+    fetchUserById(initialUser.id)
+      .then((fresh) => {
+        if (!cancelled) {
+          setUser(fresh);
+        }
+      })
+      .catch(() => {
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [initialUser.id]);
 
   const bankCard = useMemo<BankCardData | null>(() => {
     if (!user.bank) return null;
@@ -111,5 +138,6 @@ export function useCustomerDetailScreen({ route }: CustomerDetailScreenProps) {
     bankCard,
     cardRevealed,
     toggleCard,
+    isLoading,
   };
 }

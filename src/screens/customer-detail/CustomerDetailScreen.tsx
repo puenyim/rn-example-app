@@ -11,12 +11,20 @@ import {
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { colors, radius, spacing, typography } from '@/theme';
 import type { CustomerDetailScreenProps } from '@/navigation/types';
+import { CustomerDetailSkeleton } from './CustomerDetailSkeleton';
 import { useCustomerDetailScreen } from './useCustomerDetailScreen';
 
 export function CustomerDetailScreen(props: CustomerDetailScreenProps) {
   const { navigation } = props;
-  const { user, t, sections, bankCard, cardRevealed, toggleCard } =
-    useCustomerDetailScreen(props);
+  const {
+    user,
+    t,
+    sections,
+    bankCard,
+    cardRevealed,
+    toggleCard,
+    isLoading,
+  } = useCustomerDetailScreen(props);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,6 +36,10 @@ export function CustomerDetailScreen(props: CustomerDetailScreenProps) {
       ),
     });
   }, [navigation, t]);
+
+  if (isLoading) {
+    return <CustomerDetailSkeleton />;
+  }
 
   return (
     <ScrollView

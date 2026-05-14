@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   FlatList,
   ListRenderItem,
+  Pressable,
   RefreshControl,
   StyleSheet,
   Text,
@@ -17,7 +18,7 @@ import { ListEmpty } from '@/components/ListEmpty';
 import { ListFooter } from '@/components/ListFooter';
 import { SearchBar } from '@/components/SearchBar';
 import { UserListItem } from '@/components/UserListItem';
-import { colors, spacing, typography } from '@/theme';
+import { colors, radius, spacing, typography } from '@/theme';
 import type { User } from '@/types/user';
 import type { HomeScreenProps } from '@/navigation/types';
 import { useHomeScreen } from './useHomeScreen';
@@ -48,6 +49,7 @@ export function HomeScreen(props: HomeScreenProps) {
     handleChangeCategory,
     handleRetry,
     handlePressItem,
+    handleLogout,
   } = useHomeScreen(props);
 
   useLayoutEffect(() => {
@@ -56,10 +58,17 @@ export function HomeScreen(props: HomeScreenProps) {
       headerRight: () => (
         <View style={styles.headerRight}>
           <LanguageToggle />
+          <Pressable
+            onPress={handleLogout}
+            hitSlop={8}
+            style={styles.logoutBtn}
+          >
+            <Text style={styles.logoutText}>↩</Text>
+          </Pressable>
         </View>
       ),
     });
-  }, [navigation, t]);
+  }, [navigation, t, handleLogout]);
 
   const renderItem: ListRenderItem<User> = useCallback(
     ({ item }) => <UserListItem user={item} onPress={handlePressItem} />,
@@ -189,6 +198,20 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxl,
   },
   headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
     paddingRight: spacing.sm,
+  },
+  logoutBtn: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 4,
+  },
+  logoutText: {
+    fontSize: 16,
+    color: colors.primary,
+    fontWeight: '700',
   },
 });

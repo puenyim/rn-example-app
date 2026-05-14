@@ -2,26 +2,31 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import type { User } from '@/types/user';
 
-/**
- * Param list ของ root stack — typed routes
- */
-export type RootStackParamList = {
-  Home: undefined;
+// ─── Auth Stack ───────────────────────────────────────────────────────────────
 
+export type AuthStackParamList = {
+  Login: undefined;
+};
+
+export type LoginScreenProps = NativeStackScreenProps<AuthStackParamList, 'Login'>;
+
+// ─── App Stack ────────────────────────────────────────────────────────────────
+
+export type AppStackParamList = {
+  Home: undefined;
   CustomerDetail: { user: User };
 };
 
-export type HomeScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  'Home'
->;
+export type HomeScreenProps = NativeStackScreenProps<AppStackParamList, 'Home'>;
 export type CustomerDetailScreenProps = NativeStackScreenProps<
-  RootStackParamList,
+  AppStackParamList,
   'CustomerDetail'
 >;
 
+// ─── Global declaration ───────────────────────────────────────────────────────
+
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList { }
+    interface RootParamList extends AppStackParamList {}
   }
 }

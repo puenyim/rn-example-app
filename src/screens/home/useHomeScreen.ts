@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import { useAppDispatch, useAppSelector } from '@/store';
+import { logout } from '@/store/auth/authSlice';
 import { fetchUsersInitial, fetchUsersNextPage, setGender } from '@/store/users/usersSlice';
 import type { GenderFilter } from '@/services/users';
 import type { User } from '@/types/user';
@@ -68,6 +69,10 @@ export function useHomeScreen({ navigation }: HomeScreenProps) {
     dispatch(fetchUsersInitial({ query: text.trim(), gender }));
   }, [dispatch, text, gender]);
 
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
+
   const categoryOptions = useMemo<CategoryChip<GenderFilter>[]>(
     () => [
       { value: 'all', label: t('category.all') },
@@ -105,5 +110,6 @@ export function useHomeScreen({ navigation }: HomeScreenProps) {
     handleChangeCategory,
     handleRetry,
     handlePressItem,
+    handleLogout,
   };
 }

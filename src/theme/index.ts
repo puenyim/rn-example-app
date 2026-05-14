@@ -8,6 +8,7 @@ export const colors = {
   text: '#0F172A',
   textMuted: '#64748B',
   textInverse: '#FFFFFF',
+  accent: '#0F766E',
   danger: '#DC2626',
   success: '#16A34A',
   shadow: 'rgba(15, 23, 42, 0.08)',
